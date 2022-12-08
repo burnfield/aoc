@@ -68,3 +68,44 @@ fn day02() {
 fn test2() {
     day02();
 }
+
+fn common_items(x: &[u8], y: &[u8]) -> Vec<u8> {
+    x.iter().copied().filter(|a| y.contains(a)).collect()
+}
+
+fn item_value(item: u8) -> usize {
+    let alphabet = (b'a'..=b'z').chain(b'A'..=b'Z').collect::<Vec<u8>>();
+    alphabet.iter().position(|abc| *abc == item).unwrap() + 1 as usize
+}
+
+fn day03() {
+    let lines = include_str!("day3.input")
+        .split("\n")
+        .filter_map(|l| match l {
+            "" => None,
+            _ => Some(l.as_bytes()),
+        })
+        .collect::<Vec<&[u8]>>();
+
+    let part1 = lines
+        .iter()
+        .map(|l| common_items(&l[..l.len() / 2], &l[l.len() / 2..]))
+        .map(|i| item_value(i[0]))
+        .sum::<usize>();
+
+    println!("Day 3 part 1: {}", part1);
+
+    let part2 = lines
+        .iter()
+        .tuples()
+        .map(|(a, b, c)| common_items(a, &common_items(b, c)))
+        .map(|i| item_value(i[0]))
+        .sum::<usize>();
+
+    println!("Day 3 part 2: {}", part2);
+}
+
+#[test]
+fn test3() {
+    day03();
+}
