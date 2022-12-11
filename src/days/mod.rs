@@ -3,6 +3,7 @@ mod day2;
 mod day3;
 mod day4;
 mod day5;
+mod day6;
 
 pub mod prelude {
     pub use super::day1::DayOne;
@@ -10,4 +11,5 @@ pub mod prelude {
     pub use super::day3::DayThree;
     pub use super::day4::DayFour;
     pub use super::day5::DayFive;
+    pub use super::day6::DaySix;
 }
